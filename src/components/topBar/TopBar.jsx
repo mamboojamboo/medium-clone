@@ -1,36 +1,62 @@
-import React from 'react';
+import React, { useContext, Fragment } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-const TopBar = () => (
-  <nav className='navbar navbar-light'>
-    <div className='container'>
-      <Link to='/' className='navbar-brand'>
-        Medium
-      </Link>
+import { CurrentUserContext } from '../../contexts/currentUser';
 
-      <ul className='nav navbar-nav pull-xs-right'>
+const TopBar = () => {
+  const [currentUserState] = useContext(CurrentUserContext);
 
-        <li className='nav-item'>
-          <NavLink className='nav-link' to='/' exact>
-            Home
-          </NavLink>
-        </li>
+  return (
+    <nav className='navbar navbar-light'>
+      <div className='container'>
+        <Link to='/' className='navbar-brand'>
+          Medium
+        </Link>
 
-        <li className='nav-item'>
-          <NavLink className='nav-link' to='/login'>
-            Sign in
-          </NavLink>
-        </li>
+        <ul className='nav navbar-nav pull-xs-right'>
 
-        <li className='nav-item'>
-          <NavLink className='nav-link' to='/register'>
-            Sign up
-          </NavLink>
-        </li>
+          <li className='nav-item'>
+            <NavLink className='nav-link' to='/' exact>
+              Home
+            </NavLink>
+          </li>
 
-      </ul>
-    </div>
-  </nav>
-);
+          {currentUserState.isLoggedIn === false && (
+            <Fragment>
+              <li className='nav-item'>
+                <NavLink className='nav-link' to='/login'>
+                  Sign in
+                </NavLink>
+              </li>
+
+              <li className='nav-item'>
+                <NavLink className='nav-link' to='/register'>
+                  Sign up
+                </NavLink>
+              </li>
+            </Fragment>
+          )}
+          {currentUserState.isLoggedIn === true && (
+            <Fragment>
+            <li className='nav-item'>
+              <NavLink className='nav-link' to='/article/new'>
+                <i className='ion-compose'></i>
+                &nbsp; New Post
+              </NavLink>
+            </li>
+
+            <li className='nav-item'>
+              <NavLink className='nav-link' to={`/profile/${currentUserState.currentUser.username}`}>
+                <img className='user-pic' src={currentUserState.currentUser.image} alt='' />
+                &nbsp {currentUserState.currentUser.username}
+              </NavLink>
+            </li>
+          </Fragment>
+          )}
+        </ul>
+      </div>
+    </nav>
+  );
+};
 
 export default TopBar;
