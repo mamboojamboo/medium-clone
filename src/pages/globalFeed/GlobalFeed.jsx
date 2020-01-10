@@ -5,6 +5,9 @@ import useFetch from '../../hooks/useFetch';
 import Feed from '../../components/feed/Feed';
 import Pagination from '../../components/pagination/Pagination';
 import { getPaginator, limit } from '../../utils/utils';
+import PopularTags from '../../components/popularTags/PopularTags';
+import Loading from '../../components/loading/Loading';
+import ErrorMassage from '../../components/errorMassage/ErrorMassage';
 
 const GlobalFeed = ({ location, match }) => {
   const { offset, currentPage } = getPaginator(location.search);
@@ -31,8 +34,8 @@ const GlobalFeed = ({ location, match }) => {
       <div className='container page'>
         <div className='row'>
           <div className='col-md-9'>
-            {isLoading && <div>Loading...</div>}
-            {error && <div>Some error happend</div>}
+            {isLoading && <Loading/>}
+            {error && <ErrorMassage/>}
             {!isLoading && response && (
               <Fragment>
                 <Feed articles={response.articles}/>
@@ -45,7 +48,7 @@ const GlobalFeed = ({ location, match }) => {
             )}
           </div>
           <div className='col-md-3'>
-            Popular tags
+            <PopularTags/>
           </div>
         </div>
       </div>
