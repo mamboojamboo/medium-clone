@@ -48,7 +48,7 @@ const TopBar = () => {
             <li className='nav-item'>
               <NavLink className='nav-link' to={`/profile/${currentUserState.currentUser.username}`}>
                 <img className='user-pic' src={currentUserState.currentUser.image} alt='' />
-                &nbsp {currentUserState.currentUser.username}
+                &nbsp; {currentUserState.currentUser.username}
               </NavLink>
             </li>
           </Fragment>

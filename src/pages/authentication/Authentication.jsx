@@ -13,7 +13,7 @@ const Authentication = (props) => {
   const apiUrl = isLogin ? '/users/login' : '/users';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userName, setUsername] = useState('');
+  const [username, setUsername] = useState('');
   const [isSiccessfullSubmit, setIsSiccessfullSubmit] = useState(false);
   const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl);
   const [, setToken] = useLocalStorage('token');
@@ -21,8 +21,7 @@ const Authentication = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('data', email, password);
-    const user = isLogin ? { email, password } : { userName, email, password };
+    const user = isLogin ? { email, password } : { email, password, username };
     doFetch({
       method: 'post',
       data: {
@@ -43,7 +42,6 @@ const Authentication = (props) => {
       isLoading: false,
       currentUser: response.user
     }));
-    console.log(response);
   }, [response, setToken, setCurrentUserState]);
 
   if (isSiccessfullSubmit) {
@@ -69,7 +67,7 @@ const Authentication = (props) => {
                     type='text'
                     className='form-control form-control-lg'
                     placeholder='Username'
-                    value={ userName }
+                    value={ username }
                     onChange={(e) => setUsername(e.target.value)}
                   />
                 </fieldset>
