@@ -9,11 +9,14 @@ import YourFeed from './pages/yourFeed/YourFeed';
 import CreateArticle from './pages/createArticle/CreateArticle';
 import EditArticle from './pages/editArticle/EditArticle';
 import Settings from './pages/settings/Settings';
+import UserProfile from './pages/userProfile/UserProfile';
 
 export default () => (
   <Switch>
     <Route path='/' component={GlobalFeed} exact />
-    <Route path='/settings' component={Settings} exact />
+    <Route path='/profiles/:slug' component={UserProfile} />
+    <Route path='/profiles/:slug/favorites' component={UserProfile} />
+    <Route path='/settings' component={Settings} />
     <Route path='/feed' component={YourFeed}/>
     <Route path='/tags/:slug' component={TagFeed}/>
     <Route path='/login' component={Authentication}/>
