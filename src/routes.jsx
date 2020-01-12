@@ -6,6 +6,8 @@ import Authentication from './pages/authentication/Authentication';
 import Article from './pages/article/Article';
 import TagFeed from './pages/tagFeed/TagFeed';
 import YourFeed from './pages/yourFeed/YourFeed';
+import CreateArticle from './pages/createArticle/CreateArticle';
+import EditArticle from './pages/editArticle/EditArticle';
 
 export default () => (
   <Switch>
@@ -15,5 +17,7 @@ export default () => (
     <Route path='/login' component={Authentication}/>
     <Route path='/register' component={Authentication}/>
     <Route path='/articles/:slug' component={Article}/>
+    <Route path='/article/new' component={CreateArticle}/>
+    <Route path='/article/:slug/edit' component={EditArticle}/>
   </Switch>
 );
